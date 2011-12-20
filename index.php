@@ -4,17 +4,17 @@
 	$token = sha1(time());
 
 	$ads[0]['link'] = 'http://www.bgbng.com/';
-	$ads[0]['image'] = 'images/text/bgbng.gif';
+	$ads[0]['image'] = 'http://173.203.243.140/images/text/bgbng.gif';
 	$ads[0]['title'] = 'Increase Customer Revenue';
 	$ads[0]['description'] = 'Keep customers longer with our new Retention Reporting..';
 
 	$ads[1]['link'] = 'http://www.griffinhillconsulting.com/';
-	$ads[1]['image'] = 'images/text/anxiety.jpg';
+	$ads[1]['image'] = 'http://173.203.243.140/images/text/anxiety.jpg';
 	$ads[1]['title'] = '1 Way To Feel Happy';
 	$ads[1]['description'] = 'Researchers have discovered a simple secret to happier living...';
 
 	$ads[2]['link'] = 'http://www.bgbng.com/';
-	$ads[2]['image'] = 'images/text/home.png';
+	$ads[2]['image'] = 'http://173.203.243.140/images/text/home.png';
 	$ads[2]['title'] = 'Secret of a Home Business';
 	$ads[2]['description'] = 'Find out how moms can make extra money from the comfort of their home..';
 
