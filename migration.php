@@ -1,4 +1,6 @@
 <?php
+	exit();
+
 	include("config.php");
 
 	$db_conn = new PDO("mysql:host=".$host.";dbname=".$dbname, $dbuser, $dbpass);
