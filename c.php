@@ -27,9 +27,8 @@
 			referrer		= ?,
 			created_at	= UNIX_TIMESTAMP(NOW());");
 		$click_stmt->execute(array($ad_id, ip2long($_SERVER['REMOTE_ADDR']), $_SERVER['HTTP_USER_AGENT'], $_SERVER['HTTP_REFERER']));
-		echo $db_conn->lastInsertId();
+		#echo $db_conn->lastInsertId();
 
-		exit();
 		header("location: ".$ad['destination_url']);
 		exit();
 	} else {

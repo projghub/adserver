@@ -55,6 +55,8 @@
 										v.id = p.vendor_id
 									WHERE
 										p.id = ?
+									AND
+										a.deleted_at IS NULL
 									ORDER BY pp.priority DESC
 									LIMIT 0, 3");
 		$ads_stmt->execute(array($placement['id']));
@@ -67,28 +69,8 @@
 	### Shuffle/Randomize Ads
 	shuffle($ads);
 	#print_r($ads);
-	#exit();
 
-################
-###  LOG IMPRESSIONS
-###  insert the impressions served (for each position, must build the query for how many ads we've shown)
-###  $db->query("INSERT INTO impressions (ad_id, publisher_id, template_id, position, total, time_served)
-###  			VALUES (1,1,1,1,1,UNIX_TIMESTAMP( DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00' ) )),
-###  			(2,1,1,2,1,UNIX_TIMESTAMP( DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00' ) )),
-###  			(3,1,1,3,1,UNIX_TIMESTAMP( DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00' ) ))
-###  			ON DUPLICATE KEY UPDATE total = total + 1");
-################
 	if($placement['medium'] == "text") { //Text Placement
-		### Use this for better placement positioning, etc.
-		#$impressionSQL 		= "INSERT INTO impressions (ad_id, vendor_id, template_id, position, total, time_served)
-		#					   VALUES (?,?,?,1,1,UNIX_TIMESTAMP(?))";
-		#for($i = 1; $i < count($ads); $i++) {
-		#	$impressionSQL .= ", (?,?,?,?,1,UNIX_TIMESTAMP(?))";
-		#}
-		#$impressionSQL .= " ON DUPLICATE KEY UPDATE total = total + 1";
-		### Debugging
-		#		echo $impressionSQL;
-
 		$impression_stmt = $db_conn->prepare("INSERT INTO impressions
 				(ad_id, vendor_id, placement_id, template_id, position, total, created_at)
 			VALUES
@@ -113,5 +95,3 @@
 
 	
 	echo 'document.write(\'<style type="text/css">#container'.$token.' { height: 250px; width: 300px; background-color: #FFF; border: 0px solid #0F0; padding: 0px 0px 1px 0px; margin: 0px 0px 0px 0px; } #container'.$token.' a { padding: 0px; margin: 0px; text-decoration: none; } #container'.$token.' a:hover { text-decoration: none; } #ad'.$token.' { background-color: #FFF; height: 83px; width: 300px; padding: 1px 0px 0px 0px; margin: 0px 0px 0px 0px; } #ad'.$token.':hover { background-image: url("'.$url.'images/button_bg.gif"); } #image'.$token.' { height: 82px; width: 100px; position:relative; float: left; padding: 2px 0px 0px 0px; margin: 0px 3px 0px 3px; } #content'.$token.' { height: 82px; width: 194px; position:relative; float: right; padding: 0px; margin: 0px; text-align: left; } #content'.$token.' .title'.$token.' { width: 194px; color: #1122CC; font-family: Arial; font-size: 14px; font-weight: bold; text-decoration: underline; } #content'.$token.' .description'.$token.' { width: 190px; color: #000; font-family: Arial; font-size: 13px; padding: 2px; } </style><div id="container'.$token.'"><a href="'.$ads[0]['link'].'"><div id="ad'.$token.'"><div id="image'.$token.'"><img src="'.$ads[0]['name'].'" width="100" height="75" border="0" /></div><div id="content'.$token.'"><span class="title'.$token.'">'.$ads[0]['title'].'</span><br /><span class="description'.$token.'">'.$ads[0]['description'].'</span></div></div></a><a href="'.$ads[1]['link'].'"><div id="ad'.$token.'"><div id="image'.$token.'"><img src="'.$ads[1]['name'].'" width="100" height="75" border="0" /></div><div id="content'.$token.'"><span class="title'.$token.'">'.$ads[1]['title'].'</span><br /><span class="description'.$token.'">'.$ads[1]['description'].'</span></div></div></a><a href="'.$ads[2]['link'].'"><div id="ad'.$token.'"><div id="image'.$token.'"><img src="'.$ads[2]['name'].'" width="100" height="75" border="0" /></div><div id="content'.$token.'"><span class="title'.$token.'">'.$ads[2]['title'].'</span><br /><span class="description'.$token.'">'.$ads[2]['description'].'</span></div></div></a></div>\');';
-
-	//__log($log_file, 'index.php', $_SERVER['REMOTE_ADDR'].':showing impression:sess '.session_id());
